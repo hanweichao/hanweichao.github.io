@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+    * {
+        padding: 0;
+        margin: 0;
+        background-color: skyblue;
+    }
+
+    .box {
+        width: 70%;
+        display: inline-block;
+        box-sizing: border-box;
+        padding: 10px;
+        border-radius: 1%;
+        background-color: white;
+        margin: 5% 0 0 16%;
+    }
+
+    .content {
+        width: 94.5%;
+        display: inline-block;
+        background-color: rgb(250, 238, 222);
+        margin: 15px;
+        padding: 15px;
+        font-size: 1.4rem;
+        
+
+    }
+
+    .content .content_input {
+        border: 1px solid orange;
+        width: 100%;
+        height: 30px;
+        line-height: 30px;
+        border-radius: 5px;
+        font-size: 1.4rem;
+        padding: 5px 0;
+        background-color: white;
+
+    }
+    .content .content_title{
+        background-color:rgb(250, 238, 222);
+    }
+
+    .content .content_input:focus {
+        outline: none;
+    }
+
+    .red {
+        background: red;
+    }
+
+    .green {
+        color: green;
+    }
+
+    .right {
+        display: flex;
+        width: 13%;
+        position: absolute;
+        right: 0px;
+        border: 1px solid black;
+        box-sizing: border-box;
+        top: 0px;
+        display: inline-block;
+        flex-wrap: wrap;
+        justify-content: center;
+        text-align: center;
+        background-color: white;
+    }
+
+    .right_box {
+        flex-grow: 1;
+        width: 100%;
+        border: 1px solid black;
+        height: 10%;
+        background-color: white;
+    }
+
+    .a {
+        height: 110px;
+        text-align: center;
+        background-color: white;
+    }
+
+    .a div {
+        display: inline-block;
+        width: 80px;
+        height: 80px;
+        background: url("img/dazi.png") no-repeat;
+        background-position-x: 0px;
+        background-color: white;
+    }
+
+    .b {
+        color: orange;
+        font-size: 30px;
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        background-color: white;
+    }
+
+    .c div {
+        height: 30px;
+        background: url("img/dazi.png") no-repeat;
+        background-position: 15px -225px;
+        background-color: white;
+        padding: 10px;
+    }
+
+    .d div {
+        height: 30px;
+        background: url("img/dazi.png") no-repeat;
+        background-position: 15px -125px;
+        background-color: white;
+        padding: 10px;
+    }
+
+    .e div {
+        height: 30px;
+        background: url("img/dazi.png") no-repeat;
+        background-position: 15px -275px;
+        background-color: white;
+        padding: 10px;
+    }
+
+    .f div {
+        height: 20px;
+        background: url("img/dazi.png") no-repeat;
+        background-position: 15px -78px;
+        background-color: white;
+        padding: 10px;
+    }
+</style>
+
+<body>
+    <div class="box">
+        <span style="margin-left:44%;background-color: white">文章名称:</span>
+        <span style="color:orange;background-color: white;" class="title_name">a girl selling machs</span>
+        &nbsp;&nbsp; 
+        <span style="background-color: white;">类别:</span>
+        <span style="color:orange;background-color: white;" class="title_type">英文</span>
+        &nbsp;&nbsp; 
+        <span style="background-color: white;">设定时间:</span>
+        <span style="color:red;background-color: white;">1分钟</span>
+
+        <div class="content">
+            <span class="content_title"></span>
+            <input class="content_input" autofocus>
+        </div>
+        <div class="content">
+            <span class="content_title"></span>
+            <input class="content_input">
+        </div>
+        <div class="content">
+            <span class="content_title"></span>
+            <input class="content_input">
+        </div>
+        <div class="content">
+            <span class="content_title"></span>
+            <input class="content_input">
+        </div>
+    </div>
+    <div class="right">
+        <div class="right_box a">
+            <div></div><br>
+            <span style="background-color: white;">倒计时</span>
+        </div>
+        <div class="right_box b time">1:00</div>
+    </div>
+</body>
+<script>
+    let content = document.getElementsByClassName("content");
+    let content_title = document.getElementsByClassName("content_title");
+    let content_input = document.getElementsByClassName("content_input");
+    let str = "Once upon a time a little girl tried to make a living by selling matches in the+street. It was New Year's Eve and the snowed streets were deserted. From brightly+lit windows came the tinkle of laughter and the sound of singing. People were+getting ready to bring in the new year. But the poor little match seller sat+sadly beside the fountain. Her ragged dress and worn shawl did not keep out the";
+    let arr_input = null;
+    let arr_c = null;
+    let flag = false;
+    var flag1 = false;
+    let time_sconed = 60;
+    let time_toal = 0;
+    let time_minute = 0;
+    let time_ = document.getElementsByClassName("time")[0];
+    let back = document.getElementsByClassName("back")[0];
+    let back_count = 1;
+    let toal_word = document.getElementsByClassName("toal_word")[0];
+    let timeer_ = null;
+    let correct = document.getElementsByClassName("correct")[0];
+    let correct_count = 0;
+    background_();
+    get_title();
+
+
+    //倒计时
+    function back_time() {
+        timeer_ = setInterval(function () {
+            // time_toal++;
+            time_sconed--;
+            if (time_sconed == 0) {
+                if (time_minute == 0 && time_sconed == 0) {
+                    clearInterval(timeer_);
+                    time_.innerHTML = "" + time_minute + ":" + time_sconed + "";
+                    return false;
+                }
+                time_minute--;
+                time_sconed = 60;
+            }
+            time_.innerHTML = "" + time_minute + ":" + time_sconed + "";
+        }, 1000)
+    }
+    //将文章渲染到页面上
+    function get_title() {
+        str = str.split("+");
+        for (let i = 0; i < content_title.length; i++) {
+            content_title[i].innerHTML = str[i];//.split("").join("");
+            content_input[i].onfocus = function () {
+                flag = false;
+                arr_input = null;
+            }
+            content_input[i].oninput = function () {
+                //console.log(content_input[i].value.length)
+                arr_c = null;
+                if (!flag) {
+                    arr_input = str[i].split("");
+                    flag = true;
+                }
+
+                //输入开始倒计时
+                if (flag1 == false) {
+                    back_time();
+                    flag1 = true;
+                }
+
+                //回退
+                content_input[i].onkeydown = function (e) {
+                    if (e.keyCode == 8) {
+                        // debugger
+                        if (content_input[i].value.length == 0) {
+                            return false;
+                        }
+                        // back.innerHTML = back_count++;
+                        // 控制字体颜色
+                        arr_input.splice(content_input[i].value.length - 1, 1, content_title[i].textContent[content_input[i].value.length - 1]);
+                        if (content_input[i].value.length >= 2) {
+                            arr_input.splice(content_input[i].value.length - 2, 1, content_title[i].textContent[content_input[i].value.length - 2]);
+                        }
+                        arr_c = arr_input.concat();
+                        content_title[i].innerHTML = arr_c.join("");
+
+                    }
+                }
+                //换行
+                if (arr_input.length <= this.value.length) {
+                    content_input[i].onkeydown = function (e) {
+                        if (e.keyCode == 32) {
+                            content_input[i + 1].focus();
+                        }
+                    }
+                }
+                //当输入框没有数据时跳出事件
+                if (content_input[i].value.length == 0) {
+                    return false;
+                }
+                //判断输入的字已经超过上面的字不在做判断
+                if (content_input[i].value.length > arr_input.length) {
+                    return false;
+                }
+                //判断输入正确错误
+                if (arr_input[this.value.length - 1] == this.value[this.value.length - 1]) {
+                    var a = '<span class="green">' + arr_input[this.value.length - 1] + '</span>';
+                    arr_input.splice(this.value.length - 1, 1, a);
+                    arr_c = arr_input.concat();
+                    content_title[i].innerHTML = arr_c.join("");
+                    console.log(arr_input);
+                    console.log(arr_c)  
+                } else {
+                    var a = '<span class="red">' + arr_input[this.value.length - 1] + '</span>';
+                    arr_input.splice(this.value.length - 1, 1, a);
+                    arr_c = arr_input.concat();
+                    content_title[i].innerHTML = arr_c.join("");
+                }
+            }
+        }
+    }
+
+    //改变背景颜色
+    function background_() {
+        for (let i = 0; i < content_input.length; i++) {
+            content_input[i].onfocus = function () {
+                for (let k = 0; k < content_input.length; k++) {
+                    content_input[k].parentElement.style.background = "rgb(250, 238, 222,0.5)";
+                }
+                this.parentElement.style.background = "rgb(250, 238, 222)";
+            }
+        }
+    }
+
+    console.log(str[0])
+</script>
+
+</html>
